@@ -1,0 +1,64 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Projeto A3",
+    "dateExported": "2023-04-07T03:51:11.160Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
+            "name": "Usuarios",
+            "containerId": "",
+            "created": "2023-04-07T01:22:11.310Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "9c5e1358-df63-4234-a1fd-5be00b313582",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
+            "name": "BuscarUsuarios",
+            "url": "http://localhost:3100/usuarios",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-04-07T01:24:02.060Z",
+            "modified": "2023-04-07T01:40:12.941Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3cedd4de-1b40-46c2-b892-d31b1f633146",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
+            "name": "BuscarUsuarioPorID",
+            "url": "http://localhost:3100/usuarios/135b909e-711f-4e09-8148-69b36396bd6e",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-04-07T03:45:35.966Z",
+            "modified": "2023-04-07T03:50:19.698Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d45bda5d-180c-449c-adf0-4bf688107700",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
+            "name": "CadastrarUsuarioNormal",
+            "url": "http://localhost:3100/usuarios",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-04-07T01:25:42.111Z",
+            "modified": "2023-04-07T03:49:05.445Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nomeCompleto\": \"Maria Silva de Jesus\",\n  \"genero\": \"Masculino\",\n  \"dataDeNascimento\": 200103,\n  \"email\": \"joaozinho@gmail.com\",\n  \"cep\": \"0000-0000\",\n  \"linksPortifolio\": [\"link1\", \"link2\"],\n  \"descricao\": \"Sou muito bom cantando opera!\",\n  \"termoDeUso\": true\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

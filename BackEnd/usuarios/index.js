@@ -17,14 +17,17 @@ app.get('/usuarios/:id', (req, res) => {
 app.post('/usuarios', async (req, res) => {
   const idUsuario = uuidv4();
   const infosUsuario = req.body;
-  console.log(infosUsuario);
+  infosUsuario.id = idUsuario
 
   usuarios[idUsuario] = {
-    idUsuario,
     infosUsuario
   }
 
-  res.status(201).send(usuarios[idUsuario, infosUsuario]);
+  res.status(201).send(usuarios[idUsuario]);
+});
+
+app.delete('/usuarios/:id', (req, res) => {
+  delete usuarios[req.params.id] && res.send(`Usuário deletado com sucesso!`);
 });
 
 app.listen(3100, () => {

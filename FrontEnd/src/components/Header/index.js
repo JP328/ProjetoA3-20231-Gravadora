@@ -10,12 +10,12 @@ export default function Header() {
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="./" className="m-auto md:m-0 flex items-center">
               <img
-                src="../../assets/img/music.png"
+                src="./img/music.png"
                 className="mr-3 h-6 sm:h-9"
-                alt="Nome_Projeto"
+                alt="Tech Records"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                Nome_Projeto
+                Tech Records
               </span>
             </a>
 
@@ -30,7 +30,7 @@ export default function Header() {
                     className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                     aria-current="page"
                   >
-                    Mande Sua Musica
+                    Cadastre-se
                   </a>
                 </li>
                 <li>
@@ -62,10 +62,10 @@ export default function Header() {
 
             <div className="flex items-center justify-between lg:order-2 w-full md:w-auto">
               <button
-                href="/Mande_sua_musica"
+                href="./"
                 className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none dark:focus:ring-primary-800"
               >
-                Mande sua musica aqui !
+                Cadastre-se
               </button>
               {/* botao mobile */}
               <button

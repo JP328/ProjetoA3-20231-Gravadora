@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Projeto A3",
-    "dateExported": "2023-04-08T21:47:52.235Z",
+    "dateExported": "2023-04-24T02:05:42.550Z",
     "version": "1.1",
     "folders": [
         {
@@ -10,6 +10,20 @@
             "containerId": "",
             "created": "2023-04-07T01:22:11.310Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "b5ac4b4d-94ca-4023-8605-0fedc0d675c6",
+            "name": "Feedback",
+            "containerId": "",
+            "created": "2023-04-22T20:02:12.374Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "c37a8ef9-44bf-463c-ab4c-2cc09774cb90",
+            "name": "BaseDeDados",
+            "containerId": "",
+            "created": "2023-04-23T03:34:45.751Z",
+            "sortNum": 30000
         }
     ],
     "requests": [
@@ -17,7 +31,7 @@
             "_id": "9c5e1358-df63-4234-a1fd-5be00b313582",
             "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
             "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
-            "name": "BuscarUsuarios",
+            "name": "Buscar_Usuarios",
             "url": "http://localhost:3100/usuarios",
             "method": "GET",
             "sortNum": 10000,
@@ -31,12 +45,12 @@
             "_id": "3cedd4de-1b40-46c2-b892-d31b1f633146",
             "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
             "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
-            "name": "BuscarUsuarioPorID",
-            "url": "http://localhost:3100/usuarios/07b0cdf2-9723-4ead-bb83-784a1e649c97",
+            "name": "Buscar_Usuario_Por_ID",
+            "url": "http://localhost:3100/usuarios/145d35eb-ce16-40c5-b2e4-2892e3a1a971",
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-04-07T03:45:35.966Z",
-            "modified": "2023-04-08T21:16:07.300Z",
+            "modified": "2023-04-11T01:49:55.610Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -45,17 +59,17 @@
             "_id": "d45bda5d-180c-449c-adf0-4bf688107700",
             "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
             "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
-            "name": "CadastrarUsuarioNormal",
-            "url": "http://localhost:3100/usuarios",
+            "name": "Cadastrar_Usuario_Normal",
+            "url": "http://localhost:5000/usuarios",
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-04-07T01:25:42.111Z",
-            "modified": "2023-04-08T21:01:21.074Z",
+            "modified": "2023-04-23T03:51:16.880Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"nomeCompleto\": \"João Silva de Jesus\",\n  \"genero\": \"Masculino\",\n  \"dataDeNascimento\": 200103,\n  \"email\": \"joaozinho@gmail.com\",\n  \"cep\": \"0000-0000\",\n  \"linksPortifolio\": [\"link1\", \"link2\"],\n  \"descricao\": \"Sou muito bom cantando opera!\",\n  \"termoDeUso\": true\n}",
+                "raw": "{\n  \"nomeCompleto\": \"João de Jesus\",\n  \"genero\": \"Masculino\",\n  \"dataDeNascimento\": 200103,\n  \"email\": \"joaozinho@gmail.com\",\n  \"cep\": \"00000-000\",\n  \"linksPortifolio\": [\"link1\", \"link2\"],\n  \"descricao\": \"Sou muito bom cantando opera!\",\n  \"banda\": \"Anjos da Noite\",\n  \"Habilidades\": [\"Cantor\", \"Compositor\", \"Voz soprano\"],\n  \"termoDeUso\": true\n}",
                 "form": []
             },
             "tests": []
@@ -64,12 +78,73 @@
             "_id": "c75d9d9a-aee8-4aab-a15a-37b13389a2a2",
             "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
             "containerId": "4eeb2b31-6639-46ba-ac4f-c190a31b1fce",
-            "name": "DeletarUsuario",
-            "url": "http://localhost:3100/usuarios/43aa5f0a-af0b-4d97-ae77-313e9451f89c",
+            "name": "Deletar_Usuario",
+            "url": "http://localhost:3100/usuarios/145d35eb-ce16-40c5-b2e4-2892e3a1a971",
             "method": "DELETE",
             "sortNum": 40000,
             "created": "2023-04-08T20:37:22.224Z",
-            "modified": "2023-04-08T21:22:31.703Z",
+            "modified": "2023-04-11T01:50:17.521Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "97614fda-93aa-4aa4-8dfa-41535b6a3542",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "b5ac4b4d-94ca-4023-8605-0fedc0d675c6",
+            "name": "cadastrar_Feedback",
+            "url": "http://localhost:6000/feedback/f0a1a507-cab5-4f21-8680-005d7de9bd1b",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-04-22T20:02:41.825Z",
+            "modified": "2023-04-23T03:54:14.197Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"message\": \"Ótimos falsetes!\",\n    \"author\": \"Nicolas, DJ\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2aedbef6-aac3-49c8-b17a-5e4d72c688bf",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "b5ac4b4d-94ca-4023-8605-0fedc0d675c6",
+            "name": "Buscar_Feedback_do_Usuario",
+            "url": "http://localhost:6000/feedback/9051a40e-1b81-4e25-b6b6-9ab1b3de6879",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-04-22T20:03:30.601Z",
+            "modified": "2023-04-22T20:40:50.689Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "71437977-42e1-4294-a5f9-2683b1d2cafb",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "b5ac4b4d-94ca-4023-8605-0fedc0d675c6",
+            "name": "Deletar_Feedback",
+            "url": "http://localhost:6000/feedback/9051a40e-1b81-4e25-b6b6-9ab1b3de6879",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-04-22T20:05:23.028Z",
+            "modified": "2023-04-22T20:42:08.046Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "989ef9df-aff7-47d8-8e75-10b6e592208a",
+            "colId": "f628f924-5bd9-48c9-aca7-fa252a814559",
+            "containerId": "c37a8ef9-44bf-463c-ab4c-2cc09774cb90",
+            "name": "Buscar_Base_de_Dados",
+            "url": "http://localhost:7000/usuarios",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-04-23T03:35:06.462Z",
+            "modified": "2023-04-23T03:38:28.420Z",
             "headers": [],
             "params": [],
             "tests": []

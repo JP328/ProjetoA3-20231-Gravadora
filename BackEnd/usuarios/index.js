@@ -16,12 +16,18 @@ app.get('/usuarios/:id', (req, res) => {
 
 app.post('/usuarios', async (req, res) => {
   const idUsuario = uuidv4();
-  const infosUsuario = req.body;
-  infosUsuario.id = idUsuario
+  const infosUsuario = {...req.body, idUsuario};
 
   usuarios[idUsuario] = {
-    infosUsuario
+    ...infosUsuario
   }
+
+  await axios.post('http://localhost:10000/eventos', {
+    tipo: "UsuarioCriado",
+    dados: {
+      ...infosUsuario
+    }
+  })
 
   res.status(201).send(usuarios[idUsuario]);
 });
@@ -30,6 +36,6 @@ app.delete('/usuarios/:id', (req, res) => {
   delete usuarios[req.params.id] && res.send(`Usuário deletado com sucesso!`);
 });
 
-app.listen(3100, () => {
-  console.log('Usuarios. Porta 3100');
+app.listen(5000, () => {
+  console.log('Usuarios. Porta 5000');
 });

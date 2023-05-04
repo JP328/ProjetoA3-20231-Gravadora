@@ -13,6 +13,9 @@ const funcoes = {
     const feedbacks = baseDeDados[feedback.userId]["feedbacks"] || [];
     feedbacks.push(feedback);
     baseDeDados[feedback.userId]["feedbacks"] = feedbacks;
+  },
+  UsuarioAtualizado: (usuario) => {
+    baseDeDados[usuario.idUsuario] = usuario;
   }
 };
 

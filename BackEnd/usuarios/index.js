@@ -32,6 +32,23 @@ app.post('/usuarios', async (req, res) => {
   res.status(201).send(usuarios[idUsuario]);
 });
 
+app.put('/usuarios/:id', async(req,res) => {
+  
+  const idUsuario = req.params.id
+
+  const infosUsuario = {...req.body, idUsuario}
+
+  usuarios[idUsuario] = infosUsuario
+  res.send("Dados atualizados com sucesso!")
+
+  await axios.post('http://localhost:10000/eventos', {
+    tipo: "UsuarioAtualizado",
+    dados: {
+      ...infosUsuario
+    }
+  })
+})
+
 app.delete('/usuarios/:id', (req, res) => {
   delete usuarios[req.params.id] && res.send(`Usuário deletado com sucesso!`);
 });

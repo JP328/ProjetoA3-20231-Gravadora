@@ -17,7 +17,7 @@ app.get('/usuarios/:id', (req, res) => {
 app.post('/usuarios', async (req, res) => {
   const idUsuario = uuidv4();
   const infosUsuario = {...req.body, idUsuario};
-
+  console.log(req);
   usuarios[idUsuario] = {
     ...infosUsuario
   }

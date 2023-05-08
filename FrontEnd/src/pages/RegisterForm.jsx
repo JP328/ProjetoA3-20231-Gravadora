@@ -1,4 +1,5 @@
-export default function Cadastro(){
+export default function Register(){
+  
   return(
     <div className="bg-gray-400 h-screen">
       
@@ -10,7 +11,11 @@ export default function Cadastro(){
             <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg ">
               <h3 className="pt-4 text-2xl text-center">Crie uma conta !</h3>
 
-              <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+              <form 
+                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                method="POST"
+                action="http://localhost:5000/usuarios"
+              >
                 <div className="mb-4 md:flex md:justify-between">
                   <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="firstName">
@@ -74,7 +79,7 @@ export default function Cadastro(){
                 <div className="mb-6 text-center">
                   <button
                     className="w-full px-4 py-2 font-bold text-white bg-blue-800 rounded-full hover:bg-blue-900 focus:shadow-outline"
-                    type="button"
+                    type="submit"
                   >
                     Registre sua Conta
                   </button>
@@ -82,7 +87,6 @@ export default function Cadastro(){
                 <div className="text-center">
                   <a
                     className="inline-block text-sm text-blue-800 hover:text-blue-900"
-                  
                     // Colocar link da pagina de login aqui
                     href="./index.html"
                   >
@@ -90,7 +94,6 @@ export default function Cadastro(){
                   </a>
                 </div>
               </form>
-
             </div>
           </div>
         </div>

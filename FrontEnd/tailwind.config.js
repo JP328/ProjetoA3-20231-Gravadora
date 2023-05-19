@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      //backgroundImage: {
+      //  "Wallpaper" : " url('./public/img/PlanoDeFundo.jpg')",
+    //  }
+    },
   },
   plugins: [],
 }

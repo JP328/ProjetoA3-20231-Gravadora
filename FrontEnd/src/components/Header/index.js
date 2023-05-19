@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <>
       <header>
-        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 bg-gradient-to-r from-pink-600 to-blue-600">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="./" className="m-auto md:m-0 flex items-center">
               <span className="self-center text-xl font-semibold whitespace-nowrap mx-2 dark:text-white">

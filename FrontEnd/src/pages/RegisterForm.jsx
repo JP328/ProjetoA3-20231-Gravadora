@@ -1,4 +1,33 @@
+import { useState } from "react"
+import requisition from "../api"
+// import axios from "axios";
+
 export default function Register(){
+
+  const [formData, setFormData] = useState({
+    name: "",
+    dataDeNascimento: "",
+    email: "",
+    password: ""
+  })
+
+  const handleFormEdit = (event, name) => {
+    setFormData((prevState) => {
+      return {...prevState, [name]: event.target.value}
+    })
+  }
+
+  const handleForm = async (event) => {
+    try {
+      event.preventDefault()
+      const data = JSON.stringify(formData)
+
+      console.log(data);
+      return requisition(data, "postUser")      
+    } catch (err) {
+      console.log(err);
+    }
+  }
   
   return(
     <div className="bg-gray-400 h-screen">
@@ -13,8 +42,7 @@ export default function Register(){
 
               <form 
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
-                method="POST"
-                action="http://localhost:5000/usuarios"
+                onSubmit={handleForm}
               >
                 <div className="mb-4 md:flex md:justify-between">
                   <div className="mb-4 md:mr-2 md:mb-0">
@@ -26,9 +54,13 @@ export default function Register(){
                       id="firstName"
                       type="text"
                       placeholder="First Name"
+                      value={formData.name}
+                      required
+                      onChange={(e) => handleFormEdit(e, 'name')}
                     />
                   </div>
-                  <div className="md:ml-2">
+                  
+                  {/* <div className="md:ml-2">
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="lastName">
                       Sobrenome
                     </label>
@@ -38,7 +70,8 @@ export default function Register(){
                       type="text"
                       placeholder="Last Name"
                     />
-                  </div>
+                  </div> */}
+
                 </div>
                 <div className="mb-4">
                   <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
@@ -49,6 +82,9 @@ export default function Register(){
                     id="email"
                     type="email"
                     placeholder="Email"
+                    value={formData.email}
+                    required
+                    onChange={(e) => handleFormEdit(e, 'email')}
                   />
                 </div>
                 <div className="mb-4 md:flex md:justify-between">
@@ -59,8 +95,11 @@ export default function Register(){
                     <input
                       className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="Senha"
-                      type="Senha"
-                      placeholder="******************"
+                      type="password"
+                      // placeholder="******************"
+                      value={formData.password}
+                      required
+                      onChange={(e) => handleFormEdit(e, 'password')}
                     />
                     <p className="text-xs italic text-red-500">Por favor, escolha uma senha válida</p>
                   </div>
@@ -71,8 +110,8 @@ export default function Register(){
                     <input
                       className="w-full px-3 py-2 mb-3 text-sm  text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="c_Senha"
-                      type="Senha"
-                      placeholder="******************"
+                      type="password"
+                      placeholder="********"
                     />
                   </div>
                 </div>

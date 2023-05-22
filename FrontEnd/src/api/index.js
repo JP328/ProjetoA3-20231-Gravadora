@@ -1,9 +1,13 @@
 import axios from "axios";
 
-function requisition(value, type) {
-  switch (type) {
+const requisition = async (value, type) => {
+  switch  (type) {
     case "postUser":
-      axios.post("http://localhost:5000/usuarios", value)      
+      await axios.post("http://localhost:5000/usuarios", value, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })     
       break;
     case "getUsers":
       axios.get("http://localhost:5000/usuarios")      

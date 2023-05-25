@@ -29,16 +29,16 @@ export default function Login(){
                     <input
                       className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="senha"
-                      type="senha"
+                      type="password"
                       placeholder="******************"
                     />
-                    <p className="text-xs italic text-red-500">Senha ou email invalido</p>
+                    {/* <p className="text-xs italic text-red-500">Senha ou email invalido</p> */}
                   </div>
                 </div>
                 <div className="mb-6 text-center">
                   <button
                     className="w-full px-4 py-2 font-bold text-white bg-blue-800 rounded-full hover:bg-blue-900 focus:shadow-outline"
-                    type="button"
+                    type="submit"
                   >
                    Login
                   </button>

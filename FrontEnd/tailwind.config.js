@@ -3,9 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
-      //backgroundImage: {
-      //  "Wallpaper" : " url('./public/img/PlanoDeFundo.jpg')",
-    //  }
+      backgroundImage: {
+      //  'wallpaper' : "url('/img/PlanoDeFundo.jpg')",
+     }
     },
   },
   plugins: [],

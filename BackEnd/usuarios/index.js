@@ -1,6 +1,6 @@
 const express = require ('express');
 const app = express();
-const cors = require('cors')
+app.use(express.json());
 const axios = require('axios'); 
 
 app.use(express.json());
@@ -14,13 +14,41 @@ app.use(cors(corsOptions));
 
 const { v4: uuidv4 } = require('uuid');
 const usuarios = {};
+const connection = mysql.createConnection({
+  host:"localhost",
+  user:"root",
+  database:"db_gravadora",
+  password:"Ethyamet@12"
+})
 
 app.get ('/usuarios', (req, res) => {
-  res.send(usuarios);
+  // res.send(usuarios);
+  const connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    database:"db_gravadora",
+    password:"Ethyamet@12"
+  })
+
+  connection.query("select * from tb_usuario", (result,err) => {
+    console.log(result)
+    console.log(err)
+  })
 });
 
 app.get('/usuarios/:id', (req, res) => {
-  res.send(usuarios[req.params.id] || []);
+  // res.send(usuarios[req.params.id] || []);
+  const connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    database:"db_gravadora",
+    password:"Ethyamet@12"
+  })
+
+  connection.query("select * from tb_usuario where idUsuario = ?", (err, result) => {
+    console.log(err)
+    console.log(result)
+  })
 });
 
 app.post('/usuarios', async (req, res) => {
@@ -59,7 +87,19 @@ app.put('/usuarios/:id', async(req,res) => {
 })
 
 app.delete('/usuarios/:id', (req, res) => {
-  delete usuarios[req.params.id] && res.send(`Usuário deletado com sucesso!`);
+  const userID = req.params.id
+  
+  connection.query(`delete from tb_usuario where idUsuario = ${userID}`,(err, result) => {
+    if(err){
+      res.send("Erro ao excluir usuário:", err)
+    }
+    else{
+      res.send(result) && res.send("Usuário excluído com sucesso!")
+    }
+    // console.log(err)
+    // res.send("Usuário excluído com sucesso!")
+  })
+
 });
 
 app.listen(5000, () => {

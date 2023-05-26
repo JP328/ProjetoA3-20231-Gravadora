@@ -1,4 +1,5 @@
 const express = require ('express');
+const mysql = require('mysql2');
 const app = express();
 app.use(express.json());
 const axios = require('axios'); 
@@ -7,7 +8,17 @@ const { v4: uuidv4 } = require('uuid');
 const feedback = {};
 
 app.get('/feedback/:id', (req, res) => {
-  res.send(feedback[req.params.id] || []);
+  // res.send(feedback[req.params.id] || []);
+  const connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"Ethyamet@12",
+    database:"db_gravadora"
+  })
+
+  connection.query("select feedback from tb_feedback where idFeedback = ?",(err,result,fields) =>{
+    res.json(result)
+  })
 });
 
 app.post('/feedback/:id', async (req, res) => {
@@ -28,7 +39,17 @@ app.post('/feedback/:id', async (req, res) => {
 });
 
 app.delete('/feedback/:id', (req, res) => {
-  delete feedback[req.params.id] && res.send(`Feedback do usuário ---- deletado com sucesso!`);
+  // delete feedback[req.params.id] && res.send(`Feedback do usuário ---- deletado com sucesso!`);
+  const connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    database:"db_gravadora",
+    password:"Ethyamet@12"
+  })
+
+  connection.query("delete feedback from tb_feedback where idFeedback = ?", () => {
+    res.send("Feedback deletado com sucesso!")
+  })
 });
 
 app.listen(6000, () => {

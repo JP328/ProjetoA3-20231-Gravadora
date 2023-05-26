@@ -16,6 +16,7 @@ export default function Register() {
     habilidades:"",
     senha:"",
     descricao:"",
+    termoDeUso: true
   })
 
   const handleFormEdit = (event, name) => {
@@ -71,9 +72,11 @@ export default function Register() {
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="genero">
                       Gênero
                     </label>
-                    <select className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="genero" name="genero" value={formData.genero}
+                    <select className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="genero" name="genero" 
+                    // value={formData.genero}
                       required
-                      onChange={(e) => handleFormEdit(e, 'genero')} >
+                      // onClick={(e) => handleFormEdit(e, 'genero')}
+                    >
                       <option value="Masculino">Masculino</option>
                       <option value="Feminino">Feminino</option>
                       <option value="Transgênero">Transgênero</option>
@@ -140,7 +143,6 @@ export default function Register() {
                       type="text"
                       placeholder="Digite o nome da sua banda"
                       value={formData.banda}
-                      required
                       onChange={(e) => handleFormEdit(e, 'banda')}
                     />
                   </div>
@@ -187,8 +189,8 @@ export default function Register() {
                     <input
                       className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="senha"
-                      type="Senha"
-                      placeholder="******************"
+                      type="password"
+                      placeholder="********"
                       value={formData.senha}
                       required
                       onChange={(e) => handleFormEdit(e, 'senha')}
@@ -207,7 +209,7 @@ export default function Register() {
                     </label>
                     <textarea className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline resize-none" id="msg" name="msg" rows="4" cols="60"  value={formData.descricao}
                     required
-                    onChange={(e) => handleFormEdit(e, 'name')}></textarea>
+                    onChange={(e) => handleFormEdit(e, 'descricao')}></textarea>
                   </div>
                 </div>
 
@@ -224,12 +226,10 @@ export default function Register() {
 
                   <div className="flex items-center ">
                     <div className="flex items-center ">
-                      <input id="termosDeUso" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "  value={formData.termosDeUso}
-                      required
-                      onChange={(e) => handleFormEdit(e, 'termosDeUso')}/>
+                      <input id="termoDeUso" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 " required/>
                     </div>
                     <div className="ml-2 text-xl">
-                      <label for="termosDeUso" className="text-base font-bold text-gray-700">Eu concordo com os termos de uso</label>
+                      <label htmlFor="termoDeUso" className="text-base font-bold text-gray-700">Eu concordo com os termos de uso</label>
 
                     </div>
                   </div>

@@ -1,16 +1,7 @@
-import Header from './components/Header'
-import CTA from './components/CTA'
-import Footer from './components/Footer'
-
+import MainRoute from "./routes/routes"
 
 function App() {
-  return (
-    <>
-      <Header/>
-      <CTA />
-      <Footer />
-    </>
-  )
+  return <MainRoute/>
 }
 
 export default App

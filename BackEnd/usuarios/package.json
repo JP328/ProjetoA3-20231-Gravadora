@@ -19,6 +19,7 @@
   "homepage": "https://github.com/JP328/ProjetoA3-20231-Gravadora#readme",
   "dependencies": {
     "axios": "^1.3.5",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql2": "^3.3.2",
     "uuid": "^9.0.0"

@@ -1,7 +1,10 @@
 const express = require ('express');
 const app = express();
 app.use(express.json());
-const axios = require('axios'); 
+const axios = require('axios');
+require('dotenv').config()
+const {DB_USER,DB_HOST,DB_DATABASE,DB_PASSWORD}  = process.env
+
 
 app.use(express.json());
 // app.use(cors)
@@ -14,50 +17,43 @@ app.use(cors(corsOptions));
 
 const { v4: uuidv4 } = require('uuid');
 const usuarios = {};
+
 const connection = mysql.createConnection({
-  host:"localhost",
-  user:"root",
-  database:"db_gravadora",
-  password:"Ethyamet@12"
+  host: DB_HOST,
+  user: DB_USER,
+  database: DB_DATABASE,
+  password: DB_PASSWORD
 })
 
 app.get ('/usuarios', (req, res) => {
-  // res.send(usuarios);
-  const connection = mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    database:"db_gravadora",
-    password:"Ethyamet@12"
-  })
-
   connection.query("select * from tb_usuario", (result,err) => {
-    console.log(result)
-    console.log(err)
+    if(err){
+      console.log("Erro:", err)
+    }else{
+      res.json(result)
+    }
   })
 });
 
 app.get('/usuarios/:id', (req, res) => {
-  // res.send(usuarios[req.params.id] || []);
-  const connection = mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    database:"db_gravadora",
-    password:"Ethyamet@12"
-  })
-
   connection.query("select * from tb_usuario where idUsuario = ?", (err, result) => {
-    console.log(err)
-    console.log(result)
+    if(err){
+      console.log("Erro:", err)
+    }else{
+      res.json(result)
+    }
   })
 });
 
 app.post('/usuarios', async (req, res) => {
-  const idUsuario = uuidv4();
-  const infosUsuario = {...req.body, idUsuario};
-  console.log(req.body);
-  usuarios[idUsuario] = {
-    ...infosUsuario
-  }
+  // const idUsuario = uuidv4();
+  // const infosUsuario = {...req.body, idUsuario};
+  // console.log(req.body);
+  // usuarios[idUsuario] = {
+  //   ...infosUsuario
+  // }
+
+  connection.query("")
 
   await axios.post('http://localhost:10000/eventos', {
     tipo: "UsuarioCriado",
@@ -94,10 +90,8 @@ app.delete('/usuarios/:id', (req, res) => {
       res.send("Erro ao excluir usuário:", err)
     }
     else{
-      res.send(result) && res.send("Usuário excluído com sucesso!")
+      res.json(result) && res.send("Usuário excluído com sucesso!")
     }
-    // console.log(err)
-    // res.send("Usuário excluído com sucesso!")
   })
 
 });

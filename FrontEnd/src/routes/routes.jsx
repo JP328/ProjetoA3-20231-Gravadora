@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Base from '../pages/Base';
 import Register from '../pages/RegisterForm';
 import Login from '../pages/Login';
+import userPage from '../pages/User';
 
 function MainRoute() {
   return(
@@ -12,6 +13,7 @@ function MainRoute() {
           <Route index element={<Home/>} />
           <Route path="/cadastre-se" element={<Register/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/usuario" element={<userPage/>} />
         </Route>
       </Routes>
     </BrowserRouter>

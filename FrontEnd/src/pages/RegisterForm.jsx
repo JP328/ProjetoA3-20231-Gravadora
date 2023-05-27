@@ -1,9 +1,11 @@
 import { useState } from "react"
-import requisition from "../api"
+import {useAddUsersMutation} from "../store"
 // import axios from "axios";
 
 
 export default function Register() {
+
+  const [addUser] = useAddUsersMutation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,9 +31,10 @@ export default function Register() {
     try {
       event.preventDefault()
       const data = JSON.stringify(formData)
-
-      console.log(data);
-      return requisition(data, "postUser")
+      // console.log(addUserResults); 
+      
+      return await addUser(data)
+    
     } catch (err) {
       console.log(err);
     }

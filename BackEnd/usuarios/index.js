@@ -22,10 +22,10 @@ const { v4: uuidv4 } = require('uuid');
 const usuarios = {};
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "db_gravadora",
-  password: "Ethyamet@12"
+  host: DB_HOST,
+  user: DB_USER,
+  database: DB_DATABASE,
+  password: DB_PASSWORD
 })
 
 app.get ('/usuarios', (req, res) => {
@@ -33,7 +33,7 @@ app.get ('/usuarios', (req, res) => {
     if(err){
       console.log("Erro:", err)
     }else{
-      res.json(result)
+      res.send.json(result)
     }
   })
 });
@@ -52,37 +52,22 @@ const userId = req.params.idUsuario
 });
 
 app.post('/usuarios', async (req, res) => {
-  // const idUsuario = uuidv4();
-  const nome = req.body.nomeCompleto
-  const genero = req.body.genero
-  const data = req.body.dataDeNascimento
-  const email = req.body.email
-  const cep = req.body.cep
-  const portifolio = req.body.linksPortifolio
-  const descricao = req.body.descricao
-  const habilidades = req.body.habilidades
-  const banda = req.body.banda
-  const termoDeUso = req.body.termoDeUso
+  const sql = "insert into tb_usuario set ?"
 
-  // console.log(req.body);
-  // usuarios[idUsuario] = {
-  //   ...infosUsuario
-  // }
+  const infosUsuario = req.body
 
-  const sql = "insert into tb_usuario(nomeCompleto, genero, dataDeNascimento, email, cep, linkPortifolio, descricao, banda, habilidades, termoDeUso) values (?,?,?,?,?,?,?,?,?,?)"
-
-  connection.query(sql,[nome, genero, data, email, cep, portifolio, descricao, banda, habilidades, termoDeUso],(err,result) => {
+  connection.query(sql,infosUsuario,(err,result) => {
     if(err){
       res.send(err)
     }else{
-      res.status(201).send("Usuário cadastrado com sucesso!", result)
+      res.send(req.body)
     }
   })
 
   await axios.post('http://localhost:10000/eventos', {
     tipo: "UsuarioCriado",
     dados: {
-      nome, genero, data, email, cep, portifolio, descricao, banda, habilidades, termoDeUso
+      ...infosUsuario
     }
   })
 });
@@ -91,21 +76,14 @@ app.put('/usuarios/:idUsuario', async(req,res) => {
   
   const idUsuario = req.params.idUsuario
 
-  const nome = req.body.nomeCompleto
-  const genero = req.body.genero
-  const data = req.body.dataDeNascimento
-  const email = req.body.email
-  const cep = req.body.cep
-  const portifolio = req.body.linksPortifolio
-  const descricao = req.body.descricao
-  const habilidades = req.body.habilidades
-  const banda = req.body.banda
+  const infosUsuario = req.body
 
-  connection.query(`update tb_usuario set nomeCompleto=${nome}, genero=${genero}, dataDeNascimento=${data}, email=${email}, cep=${cep}, linkPortifolio=${portifolio}, descricao=${descricao}, habilidades=${habilidades}, banda=${banda} where idUsuario = ${idUsuario}`,(err, result) =>{
+  const sql = `update tb_usuario set ? where idUsuario =${idUsuario}`
+  connection.query(sql,infosUsuario, (err, result) =>{
     if(err){
-      console.log("Erro:", err)
+      res.send(err)
     }else{
-      console.log("Usuário atualizado com suceeso!", result)
+      res.send(req.body)
     }
   })
 
@@ -125,13 +103,15 @@ app.put('/usuarios/:idUsuario', async(req,res) => {
 
 app.delete('/usuarios/:idUsuario', (req, res) => {
   const userID = req.params.idUsuario
+
+  const sql ="delete from tb_usuario where idUsuario = ?"
   
-  connection.query(`delete from tb_usuario where idUsuario = ${userID}`,(err, result) => {
+  connection.query(sql, req.params.idUsuario,(err, result) => {
     if(err){
-      res.send("Erro ao excluir usuário:", err)
+      res.send(err)
     }
     else{
-      res.json(result) && res.send("Usuário excluído com sucesso!")
+      res.send("Usuário excluído com sucesso!")
     }
   })
 

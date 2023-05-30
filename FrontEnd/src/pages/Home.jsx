@@ -3,6 +3,7 @@ import {SiLinkedin} from "react-icons/si";
 import {SiGithub} from "react-icons/si"; 
 import {SiFacebook} from "react-icons/si";
 import {SiInstagram} from "react-icons/si";
+import {BsFillTelephoneFill} from "react-icons/bs";
 
 export default function Home() {
   return (
@@ -35,7 +36,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full h-full flex flex-col justify-center items-center px-2 bg-gradient-to-b from-blue-500 to-pink-500"> 
+      <div className="w-full h-full flex flex-col justify-center items-center px-2 bg-gradient-to-b from-blue-500 to-pink-500 overflow-hidden"> 
         <p className="w-4/5 text-lg text-justify leading-8 text-white">
           Bem-vindo à nossa gravadora inovadora, onde acreditamos no poder dos jovens entusiastas da tecnologia para revolucionar a indústria da música. Nossa missão é proporcionar um ambiente de apoio e recursos para esses talentos emergentes explorarem todo o seu potencial criativo. Combinamos a paixão pela música com a expertise tecnológica, oferecendo oportunidades únicas de experimentação e colaboração. Na nossa gravadora, você encontrará um espaço onde a inovação é valorizada e os limites são constantemente desafiados.
         </p>
@@ -79,75 +80,84 @@ export default function Home() {
               alt="JPedro"/>  
           </div>
 
-          <div className="snap-center mt-10"> Caio 
-            <img
-              src="./img/CaioOFC.jpg"
-              className="h-50 w-40 flex text-center snap-center"
-              alt="Caio"/>
-              Olá, meu nome é Caio Ryan. Meu gênero musical favorito é o hip-hop e eu também ajudei a desenvolver a plataforma usando alguns conhecimentos do back-end 
-          </div>
+        <div className="w-full h-full my-10 text-2xl flex gap-2"> 
+                    <img
+                    src="./img/CaioOFC.jpg"
+                    className="w-1/4 mr-4"
+                    alt="Caio"/>
+                    <div className="w-full flex flex-col justify-evenly items-center">
+                      <p className="text-6xl">Caio Ryan</p>
+                      <p className="px-4 text-justify">
+                       Olá, meu nome é Caio Ryan. Meu gênero musical favorito é o hip-hop e eu também ajudei a desenvolver a plataforma usando alguns conhecimentos do back-end 
+                      </p>
+                    </div>
+                  </div>
 
-          <div className="snap-center mt-10">
-            <img
-              src="./img/Pablo.jpg"
-              className="h-50 w-40 flex text-center snap-center"
-              alt="Pablo"/>
-            <div>
-              <p>Pablo</p>
+         <div className="w-full h-full my-10 text-2xl flex gap-2">
+            <div className="w-full flex flex-col justify-evenly items-center">
+              <p className="text-6xl">Pablo</p>
               <p className="px-4 text-justify">
                 Muito prazer sou Pablo, apaixonado no ramo musical um dos integrantes dessa incrível empresa que e a Tech recordes, sou desenvolvedor na area de tecnologia e com meus conhecimentos ajudei a desenvolver esta plataforma com a parte do front-end
               </p>
             </div>
-          </div>
-
-          <div className="snap-center mt-10"> Nicolas
             <img
-            src="./img/Nicolas.jpg"
-            className="h-50 w-40 flex text-center"
-            alt="Nicolas"/>
-            <span className="flex">Olá !, me chamo Nicolas, e além de um eterno ouvinte de todo tipo de gênero musical, sou um dos desenvolvedores que contribuíram para a construção dessa incrível plataforma!</span>
+              src="./img/Pablo.jpg"
+              className="w-1/4 mr-4"
+              alt="Pablo"/>  
           </div>
 
-          <div 
-            className="mt-10 font-bold text-white sm:text-4xl text-2xl"
-          > 
-            <h1>Contato</h1>
-            <ul>  
-              <div className="flex gap-2"> 
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                  </svg>
-                </span> Telefone:
-              </div>
-              <p className="underline text-blue-100">(11) 20135-5457</p>
-              <div className ="underline text-blue-200 flex items-center gap-2">
-                <SiLinkedin/>
-                <a href="https://www.linkedin.com/check/manage-account"
-                className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200">
-                  Linkedin</a>
-              </div>
-              <div className ="underline text-blue-200 flex items-center gap-2">
-                <SiGithub/>
-                <a href="https://github.com/JP328/ProjetoA3-20231-Gravadora"
-                  className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200">  GitHub</a>
-              </div> 
-              <div className ="underline text-blue-200 flex items-center gap-2">
-                <SiFacebook/>
-                <a
-                href="https://pt-br.facebook.com/"
-                className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200"
-                >Facebook</a>
-              </div>
-              <div className ="underline text-blue-200 flex items-center gap-2">
-                  <SiInstagram/>
-                <a
-                href="https://www.instagram.com/"
-                className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200"
-                >Instagram</a>
-              </div>
-            </ul> 
-          </div>
+          <div className="w-full h-full my-10 text-2xl flex gap-2"> 
+                    <img
+                    src="./img/Nicolas.jpg"
+                    className="w-1/4 mr-4"
+                    alt="Caio"/>
+                    <div className="w-full flex flex-col justify-evenly items-center">
+                      <p className="text-6xl"> Nicolas</p>
+                      <p className="px-4 text-justify">
+                       Olá!, me chamo Nicolas, e além de um eterno ouvinte de todo tipo de gênero musical, sou um dos desenvolvedores que contribuíram para a construção dessa incrível plataforma! 
+                      </p>
+                    </div>
+                  </div>
+
+        </div>
+        <div className=" h-full  w-full mb-10 mt-10 font-bold text-white  text-xl gap-2"> 
+            <h2 className="text-left ">Contatos</h2>
+            
+            <div className="underline text-blue-200 flex w-full h-full text-left my-2"> 
+              <BsFillTelephoneFill/>
+                Telefone:
+                <p className="underline text-blue-100">(11) 20135-5457</p>
+            </div>
+
+            <div className ="underline text-blue-200 flex items-center my-2">
+              <SiLinkedin/>
+              <a href="https://www.linkedin.com/check/manage-account"
+              className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200">
+                Linkedin</a>
+            </div>
+
+            <div className ="underline text-blue-200 flex items-center my-2">
+              <SiGithub/>
+              <a href="https://github.com/JP328/ProjetoA3-20231-Gravadora"
+                className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200">  GitHub</a>
+            </div> 
+
+            <div className ="underline text-blue-200 flex items-center my-2">
+              <SiFacebook/>
+              <a
+              href="https://pt-br.facebook.com/"
+              className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200"
+              >Facebook</a>
+            </div>
+
+            <div className ="underline text-blue-200 flex items-center my-2">
+                <SiInstagram/>
+              <a
+              href="https://www.instagram.com/"
+              className="text-white transition duration-150 ease-in-out hover:text-neutral-100 focus:text-neutral-100 active:text-neutral-200"
+              >Instagram</a>
+            </div>
+
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 import {useAddUsersMutation} from "../store"
-// import axios from "axios";
-
 
 export default function Register() {
 
@@ -240,17 +239,13 @@ export default function Register() {
                 </div>
 
                 <div className="text-center">
-                  <a
-                    className="inline-block text-sm text-blue-800 hover:text-blue-900"
-                    // Colocar link da pagina de login aqui
-                    href="./index.html"
+                  <Link 
+                    className="inline-block text-sm text-blue-800 hover:text-blue-900" 
+                    to={'/login'}
                   >
-                    Já tem uma conta ? faça o Login !
-                  </a>
+                    Já tem uma conta? Faça o Login!
+                  </Link>
                 </div>
-
-
-
               </form>
             </div>
           </div>

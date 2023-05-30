@@ -7,6 +7,14 @@ const usersApi = createApi({
   }),
   endpoints(builder) {
     return {
+      fectchUsers: builder.query({
+        query: () => {
+          return {
+            method: 'GET',
+            url: '/usuarios'
+          }
+        }        
+      }),
       addUsers: builder.mutation({
         query: (data) => {
           return {

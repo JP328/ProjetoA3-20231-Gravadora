@@ -1,4 +1,4 @@
-function adminPage() {
+function Admin() {
   return (
     <div className="">
 
@@ -6,4 +6,4 @@ function adminPage() {
   )
 }
 
-export default adminPage;
+export default Admin;

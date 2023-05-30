@@ -7,10 +7,10 @@ export default function Header() {
   return (
     <>
       <header>
-        <nav className="border-gray-200 px-4 lg:px-6 py-2.5 bg-blue-500">
+        <nav className="border-gray-200 px-4 lg:px-6 py-2.5 bg-slate-100">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="./" className="m-auto md:m-0 flex items-center">
-              <span className="self-center text-xl font-semibold whitespace-nowrap mx-2 dark:text-white">
+              <span className="self-center text-xl font-semibold whitespace-nowrap mx-2">
                 Tech Records
               </span>
               <img
@@ -27,14 +27,14 @@ export default function Header() {
                 <li>
                   {/* <a
                     href="./"
-                    className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                    className="block py-2 pr-4 pl-3 text-black rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 hover:text-blue-800"
                     aria-current="page"
                   >
                     Inicio
                   </a> */}
                   <Link
                     to={"/usuario"}
-                    className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                    className="block py-2 pr-4 pl-3 text-black rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 hover:text-blue-800"
                     aria-current="page"
                   >
                     Inicio
@@ -43,7 +43,7 @@ export default function Header() {
                 <li>
                   <a
                     href="./"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-black border-b hover:bg-gray-50 lg:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 hover:text-blue-800 lg:hover:bg-transparent border-gray-700"
                   >
                     Sobre Nós
                   </a>
@@ -51,7 +51,7 @@ export default function Header() {
                 <li>
                   <a
                     href="./"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-black border-b hover:bg-gray-50 lg:border-0 lg:hover:text-primary-700 lg:p-0 hover:text-blue-800 lg:bg-transparent border-gray-700"
                   >
                     Nosso Time
                   </a>
@@ -59,7 +59,7 @@ export default function Header() {
                 <li>
                   <a
                     href="./"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-black border-b hover:bg-gray-50 lg:border-0 lg:hover:text-primary-700 lg:p-0 hover:text-blue-800 lg:bg-transparent border-gray-700"
                   >
                     Contato
                   </a>
@@ -71,20 +71,13 @@ export default function Header() {
 
               <Link
                 to={'/login'}
-                className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none dark:focus:ring-primary-800"              
+                className="text-slate-100 bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none focus:ring-primary-800"              
               >
                 Login
               </Link>
-              {/* <button
-                href="./"
-                className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none dark:focus:ring-primary-800"
-              >
-                Login
-              </button> */}
-              {/* botao mobile */}
               <button
                 type="button"
-                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2"
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <span className="sr-only">Open main menu</span>

@@ -1,47 +1,47 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const usersApi = createApi({
+const feedbackApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000'
+    baseUrl: 'http://localhost:6000'
   }),
   endpoints(builder) {
     return {
-      fectchUsers: builder.query({
+      fectchFeedbacks: builder.query({
         query: () => {
           return {
             method: 'GET',
-            url: '/usuarios'
+            url: '/feedback'
           }
         }        
       }),
-      fectchUserById: builder.query({
+      fectchFeedbackById: builder.query({
         query: (id) => {
           return {
             method: 'GET',
-            url: `/usuarios/${id}`,
+            url: `/feedback/${id}`,
             params: {
               id: id
             }
           }
         }        
       }),
-      addUser: builder.mutation({
-        query: (data) => {
+      addFeedback: builder.mutation({
+        query: (data, id) => {
           return {
             method: 'POST',
-            url: '/usuarios',
+            url: `/feedback/${id}`,
             body: {
               ...data
             }
           };
         }
       }),
-      removeUser: builder.mutation({
+      removeFeedback: builder.mutation({
        query: (id) => {
         return {
           method: 'DELETE',
-          url: `/usuarios/${id}`,
+          url: `/feedback/${id}`,
           params: {
             id: id
           }
@@ -53,8 +53,8 @@ const usersApi = createApi({
 })
 
 export const { 
-  useAddUserMutation, 
-  useFectchUserByIdQuery, 
-  useFectchUsersQuery, 
-  useRemoveUserMutation } = usersApi;
-export { usersApi };
+  useFectchFeedbacksQuery, 
+  useFectchFeedbackByIdQuery, 
+  useAddFeedbackMutation, 
+  useRemoveFeedbackMutation } = feedbackApi;
+export { feedbackApi };

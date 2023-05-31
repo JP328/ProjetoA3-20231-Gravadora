@@ -1,12 +1,30 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function LoginPage(){
+export default function LoginPage() {
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleForm = (event, name) => {
+    setLoginData((prevState) => {
+      return { ...prevState, [name] : event}
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const data = loginData
+    console.log(data);
+  }
+
   return(
     <div className="bg-gradient-to-br from-blue-500 to-pink-500 h-screen flex justify-center items-center">
-     
       <div className="w-full xl:w-3/4 lg:w-11/12 flex justify-center" >  
         <div className="w-full lg:w-7/12 p-5 rounded-lg ">
-          <form className="px-8 pb-8 mb-4 rounded">
+          <form className="px-8 pb-8 mb-4 rounded" onSubmit={handleSubmit}>
           
             <div className="mb-4">
               <label className="block mb-2 text-sm font-bold text-white" htmlFor="email">
@@ -16,6 +34,8 @@ export default function LoginPage(){
                 className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 id="email"
                 type="email"
+                value={loginData.email}
+                onChange={(e) => handleForm(e.target.value, "email")}
                 required
                 placeholder="Digite seu e-mail"
               />
@@ -30,6 +50,8 @@ export default function LoginPage(){
                   className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="senha"
                   type="password"
+                  value={loginData.password}
+                  onChange={(e) => handleForm(e.target.value, "password")}
                   required
                   placeholder="********"
                 />
@@ -40,7 +62,7 @@ export default function LoginPage(){
             <div className="mb-6 text-center">
               <button
                 className="w-1/2 px-4 py-2 font-bold text-white border border-white rounded-full hover:border-blue-200 hover:text-blue-200 focus:shadow-outline"
-                type="submit"
+                type="submit"                
               >
                 Entrar
               </button>

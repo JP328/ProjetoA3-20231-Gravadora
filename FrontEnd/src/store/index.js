@@ -2,10 +2,16 @@ import { configureStore} from "@reduxjs/toolkit";
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { usersApi } from "./slices/users";
+import { feedbackApi } from "./slices/feedback";
+import { userIdReducer } from "./slices/userId";
+import { referencesReducer } from "./slices/references";
 
 export const store = configureStore({
   reducer: {
     [usersApi.reducerPath] : usersApi.reducer,
+    [feedbackApi.reducerPath] : feedbackApi.reducer,
+    [userIdReducer.name] : userIdReducer,
+    [referencesReducer.name] : referencesReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -15,45 +21,17 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
-export { useAddUsersMutation } from './slices/users'
+export { 
+  useAddUserMutation, 
+  useFectchUserByIdQuery, 
+  useFectchUsersQuery, 
+  useRemoveUserMutation } from './slices/users'
 
+  export { 
+  useAddFeedbackMutation, 
+  useFectchFeedbackByIdQuery, 
+  useFectchFeedbacksQuery, 
+  useRemoveFeedbackMutation } from './slices/feedback'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import axios from "axios";
-
-// const requisition = async (value, type) => {
-//   switch  (type) {
-//     case "postUser":
-//       await axios.post("http://localhost:5000/usuarios", value, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         }
-//       })     
-//       break;
-//     case "getUsers":
-//       axios.get("http://localhost:5000/usuarios")      
-//       break;
-//     default:
-//       break;
-//   }
-// }
-
-// export default requisition;
+export { setId } from './slices/userId'
+export { setReferences } from './slices/references'

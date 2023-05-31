@@ -1,5 +1,6 @@
 const express = require ('express');
 const mysql = require('mysql2');
+require('dotenv').config()
 const app = express();
 app.use(express.json());
 const axios = require('axios'); 
@@ -15,21 +16,23 @@ const connection = mysql.createConnection({
   database:DB_DATABASE
 })
 
-app.get('/feedback/:id', (req, res) => {
+app.get('/feedback/:idFeedback', (req, res) => {
   // res.send(feedback[req.params.id] || []);
 
   const idFeedback = req.params.idFeedback;
+
+  const sql = "select * from tb_feedback where idFeedback = ?"
   
-  connection.query(`select * from tb_feedback  where idFeedback =${idFeedback}`,(err,result) =>{
+  connection.query(sql, idFeedback,(err,result) =>{
     if(err){
-      console.log("Erro:",err)
+      res.send(err)
     }else{
-      console.log(result)
+      res.send(result)
     }
   })
 });
 
-app.post('/feedback/:id', async (req, res) => {
+app.post('/feedback', async (req, res) => {
   // const feedbackId = uuidv4()
   const userId = req.params.id;
   // const message = req.body;
@@ -39,36 +42,38 @@ app.post('/feedback/:id', async (req, res) => {
 
   // feedback[userId] = feedbackDoUsuario;
 
-  const nome = req.body.nome
-  const feedback = req.body.feedback
+  // const nome = req.body.nome
+  // const infosFeedback = req.body
 
-  const sql = `insert into tb_feedback(nome,feedback) values (${nome}, ${feedback})`
+  const infosFeedback = req.body
 
-  connection.query(sql,[nome,feedback], (err,results) => {
+  const sql = "insert into tb_feedback set ?"
+
+  connection.query(sql, infosFeedback, (err,results) => {
     if(err){
-      console.log("Erro:", err)
+      res.send(err)
     }else{
-      console.log(results)
+      res.send("Feedback cadastrado com sucesso!")
     }
   })
 
   await axios.post("http://localhost:10000/eventos", {
     tipo: "FeedbackCriado",
-    dados: {...message, feedbackId, userId},
+    dados: infosFeedback
   })
-  res.status(201).send(feedback[userId]);
+  // res.status(201).send(feedback[userId]);
 });
 
-app.delete('/feedback/:id', (req, res) => {
+app.delete('/feedback/:idUsuario', (req, res) => {
   // delete feedback[req.params.id] && res.send(`Feedback do usuário ---- deletado com sucesso!`);
 
   const userId = req.params.idUsuario
 
-  connection.query(`delete feedback from tb_feedback where idFeedback = ${userId}`, (err,result) => {
+  connection.query(`delete from tb_feedback where idFeedback = ${userId}`, (err,result) => {
     if(err){
-      console.log("Erro:", err)
+      res.send(err)
     }else{
-      console.log("Usuário excluído com sucesso!", result)
+      res.send("Usuário excluído com sucesso!")
     }
   })
 });

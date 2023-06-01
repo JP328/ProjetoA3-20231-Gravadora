@@ -1,68 +1,86 @@
 const express = require ('express');
-const cors = require('cors')
 const app = express();
 app.use(express.json());
-const axios = require('axios');
-require('dotenv').config()
+
 const cors = require('cors')
+const axios = require('axios');
 const mysql = require('mysql2')
+
+require('dotenv').config()
 const {DB_USER,DB_HOST,DB_DATABASE,DB_PASSWORD}  = process.env
 
-
-app.use(express.json());
 // app.use(cors)
-const corsOptions ={
-  origin:'http://localhost:3000', 
-  credentials:true,   //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
+// const corsOptions ={
+//   origin:'http://localhost:3000', 
+//   credentials:true,   //access-control-allow-credentials:true
+//   optionSuccessStatus:200
+// }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
-const { v4: uuidv4 } = require('uuid');
-const usuarios = {};
+// const usuarios = {};
 
 const connection = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  database: DB_DATABASE,
-  password: DB_PASSWORD
+  host:DB_HOST,
+  user:DB_USER,
+  database:DB_DATABASE,
+  password:DB_PASSWORD
 })
 
 app.get ('/usuarios', (req, res) => {
-  connection.query("select * from tb_usuario", (result,err) => {
-    if(err){
-      console.log("Erro:", err)
-    }else{
-      res.send.json(result)
-    }
+  connection.query("select * from tb_usuario", (err, result) => {
+    result ? res.json(result) : res.send(err)
   })
 });
 
-app.get('/usuarios/:idUsuario', (req, res) => {
+app.get('/usuarios/validation/user/', (req, res) => {
+  const validateInfos = req.params
 
-const userId = req.params.idUsuario
+  const sql = `select * from tb_usuario where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
+  
+  connection.query(sql, (err, result) => {
+    result ? res.json(result) : res.send(err)
+  })  
+});
+
+app.post('/usuarios/validation/', (req, res) => {
+  const validateInfos = req.body
+  console.log(validateInfos);
+
+  let sql;
+  
+  validateInfos.standardUser ?
+    sql = `select * from tb_usuario where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
+  :
+    sql = `select * from tb_adm where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
+
+  connection.query(sql, (err, result) => {
+    result ? res.json(result) : res.send(false)
+  })  
+});
+
+app.get('/usuarios/:id', (req, res) => {
+  const userId = req.params.id
 
   connection.query(`select * from tb_usuario where idUsuario =${userId}`, (err, result) => {
-    if(err){
-      console.log(err)
-    }else{
-      res.json(result)
-    }
+    result ? res.json(result) : res.send(err)
   })
 });
 
 app.post('/usuarios', async (req, res) => {
-  const sql = "insert into tb_usuario set ?"
+  let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
 
-  const infosUsuario = req.body
+  const links = req.body.linksPortifolio
+  links.map((link) => formattedInputs.linksPortifolio += link + "-")
+  
+  const habilidades = req.body.habilidades
+  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "-")
+  
+  const sql = "insert into tb_usuario set ?"
+  const infosUsuario = {...req.body, ...formattedInputs}
 
   connection.query(sql,infosUsuario,(err,result) => {
-    if(err){
-      res.send(err)
-    }else{
-      res.send(req.body)
-    }
+    result ? res.send("Dados Atualizados com Sucesso!") : res.send(err)
   })
 
   await axios.post('http://localhost:10000/eventos', {
@@ -73,26 +91,23 @@ app.post('/usuarios', async (req, res) => {
   })
 });
 
-app.put('/usuarios/:idUsuario', async(req,res) => {
+app.put('/usuarios/:id', async(req,res) => {
+  let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
   
-  const idUsuario = req.params.idUsuario
-
-  const infosUsuario = req.body
-
+  const links = req.body.linksPortifolio
+  links.map((link) => formattedInputs.linksPortifolio += link + "-")
+  
+  const habilidades = req.body.habilidades
+  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "-")
+  
+  const idUsuario = req.params.id
   const sql = `update tb_usuario set ? where idUsuario =${idUsuario}`
+
+  const infosUsuario = {...req.body, ...formattedInputs}
+
   connection.query(sql,infosUsuario, (err, result) =>{
-    if(err){
-      res.send(err)
-    }else{
-      res.send(req.body)
-    }
+    result ? res.send("Dados Atualizados com Sucesso!") : res.send(err)
   })
-
-  // const infosUsuario = {...req.body, idUsuario}
-
-  // usuarios[idUsuario] = infosUsuario
-  
-  res.send("Dados atualizados com sucesso!")
 
   await axios.post('http://localhost:10000/eventos', {
     tipo: "UsuarioAtualizado",
@@ -102,20 +117,14 @@ app.put('/usuarios/:idUsuario', async(req,res) => {
   })
 })
 
-app.delete('/usuarios/:idUsuario', (req, res) => {
-  const userID = req.params.idUsuario
+app.delete('/usuarios/:id', (req, res) => {
+  const userID = req.params.id
 
   const sql ="delete from tb_usuario where idUsuario = ?"
   
-  connection.query(sql, req.params.idUsuario,(err, result) => {
-    if(err){
-      res.send(err)
-    }
-    else{
-      res.send("Usuário excluído com sucesso!")
-    }
+  connection.query(sql, userID,(err, result) => {
+    result ? res.send("Dados Excluídos com Sucesso!") : res.send(err)
   })
-
 });
 
 app.listen(5000, () => {

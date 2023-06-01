@@ -10,8 +10,8 @@ const usersApi = createApi({
       fectchUsers: builder.query({
         query: () => {
           return {
-            method: 'GET',
-            url: '/usuarios'
+            url: '/usuarios',
+            method: 'GET'
           }
         }        
       }),
@@ -25,6 +25,17 @@ const usersApi = createApi({
             }
           }
         }        
+      }),
+      validationByPassword: builder.mutation({
+        query: (data) => {
+          return {
+            method: "POST",
+            url: '/usuarios/validation/',
+            body: {
+               ...data
+            }
+          }
+        }
       }),
       addUser: builder.mutation({
         query: (data) => {
@@ -53,6 +64,7 @@ const usersApi = createApi({
 })
 
 export const { 
+  useValidationByPasswordMutation,
   useAddUserMutation, 
   useFectchUserByIdQuery, 
   useFectchUsersQuery, 

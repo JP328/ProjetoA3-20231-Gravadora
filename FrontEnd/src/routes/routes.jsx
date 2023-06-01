@@ -17,7 +17,7 @@ function MainRoute() {
           <Route path="/login" element={<Login/>} />
           <Route path="/usuario" element={<User/>} />
           <Route path="/admin-home" element={<AdminHome/>} />
-          <Route path="/admin" element={<Admin/>} />
+          <Route path="/admin-user-infos" element={<Admin/>} />
         </Route>
       </Routes>
     </BrowserRouter>

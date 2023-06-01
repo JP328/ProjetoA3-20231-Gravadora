@@ -1,26 +1,25 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
-import {useAddUserMutation} from "../store"
+import { useAddUserMutation } from "../store"
 
 export default function Register() {
   const [addUser] = useAddUserMutation();
 
   const [formData, setFormData] = useState({
-    name: "",
-    genero: "",
-    nascimento: "",
+    nomeCompleto: "",
+    genero: "Masculino",
+    dataDeNascimento: "",
     email: "",
-    cep: "",
-    banda: "",
-    links: [""],
-    habilidades: [""],
     senha: "",
+    cep: "",
+    linksPortifolio: [""],
     descricao: "",
-    termosDeUso: false
+    banda: "",
+    habilidades: [""],
+    termoDeUso: false
   })
 
   const handleFormEdit = (event, name) => {
-    console.log(event)
     setFormData((prevState) => {
       return { ...prevState, [name]: event }
     })
@@ -29,26 +28,22 @@ export default function Register() {
   const handleForm = async (event) => {
     try {
       event.preventDefault()
-      const data = JSON.stringify(formData)
-      // console.log(addUserResults); 
-      
-      return await addUser(data)
-    
+      return await addUser(formData)
     } catch (err) {
       console.log(err);
     }
   }
 
   return (
-    <div className="bg-gray-400 h-full">
+    <div className="bg-gradient-to-br from-blue-500 to-pink-500 flex h-full">
 
       <div className="container mx-auto">
         <div className="flex justify-center py-12">
 
           <div className="w-full xl:w-3/4 lg:w-11/12 flex justify-center" >
 
-            <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg ">
-              <h3 className="pt-4 text-2xl text-center">Crie uma conta !</h3>
+            <div className="w-full lg:w-9/12 bg-white p-5 rounded-lg ">
+              <h3 className="pt-4 text-2xl text-center">Crie sua conta!</h3>
 
               <form
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
@@ -63,9 +58,9 @@ export default function Register() {
                     id="name"
                     type="text"
                     placeholder="Digite seu nome completo"
-                    value={formData.name}
+                    value={formData.nomeCompleto}
                     required
-                    onChange={(e) => handleFormEdit(e.target.value, 'name')}
+                    onChange={(e) => handleFormEdit(e.target.value, 'nomeCompleto')}
                   />
                 </div>
                 <div className="mb-4 md:flex md:justify-between gap-x-5">
@@ -97,9 +92,9 @@ export default function Register() {
                       className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="dataNasc"
                       type="date"
-                      value={formData.nascimento}
+                      value={formData.dataDeNascimento}
                       required
-                      onChange={(e) => handleFormEdit(e.target.value, 'nascimento')}
+                      onChange={(e) => handleFormEdit(e.target.value, 'dataDeNascimento')}
                     />
                   </div>
                 </div>
@@ -156,7 +151,7 @@ export default function Register() {
 
                   <div className="flex flex-col">
                     {formData.habilidades.map((habilidade, index) => (
-                      <div key={`link ${index}`} className={"mb-4 md:mb-0 w-full " + index === 0 ? "" : ""}>
+                      <div key={`skills ${index}`} className={"mb-4 md:mb-0 w-full " + index === 0 ? "" : ""}>
                         <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="habilidades">
                           Habilidades
                         </label>
@@ -201,7 +196,7 @@ export default function Register() {
 
 
                   <div className="flex flex-col">
-                    {formData.links.map((link, index) => (
+                    {formData.linksPortifolio.map((link, index) => (
                       <div key={`link ${index}`} className="mb-4 md:mr-2 md:mb-0 w-full">
                         <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="links">
                           Links
@@ -216,14 +211,14 @@ export default function Register() {
                             required
 
                             onChange={(e) => {
-                              formData.links[index] = e.target.value
-                              handleFormEdit(formData.links, 'links')
+                              formData.linksPortifolio[index] = e.target.value
+                              handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
                             }}
                           />
 
                           <button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none   rounded-lg text-center  p-1 items-center " onClick={() => {
-                            formData.links.push("")
-                            handleFormEdit(formData.links, 'links')
+                            formData.linksPortifolio.push("")
+                            handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
                           }}>
                             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
                               <path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
@@ -231,8 +226,8 @@ export default function Register() {
 
                           </button>
                           {index > 0 ? (<button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none   rounded-lg text-center  p-1 items-center " onClick={() => {
-                            formData.links.splice(index, 1)
-                            handleFormEdit(formData.links, 'links')
+                            formData.linksPortifolio.splice(index, 1)
+                            handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
                           }}>
                             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
                               <path fillRule="evenodd" d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75z" clipRule="evenodd" />
@@ -263,8 +258,6 @@ export default function Register() {
 
                   </div>
 
-
-
                 </div>
 
                 <div className="mb-4 md:flex md:justify-between gap-x-5">
@@ -291,13 +284,13 @@ export default function Register() {
 
                   <div className="flex items-center ">
                     <div className="flex items-center ">
-                      <input id="termosDeUso" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 " value={formData.termosDeUso}
+                      <input id="termoDeUso" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 " value={formData.termoDeUso}
                         required
-                        checked={formData.termosDeUso}
-                        onChange={() => handleFormEdit(!formData.termosDeUso, 'termosDeUso')} />
+                        checked={formData.termoDeUso}
+                        onChange={() => handleFormEdit(!formData.termoDeUso, 'termoDeUso')} />
                     </div>
                     <div className="ml-2 text-xl">
-                      <label htmlFor="termosDeUso" className="text-base font-bold text-gray-700">Eu concordo com os termos de uso</label>
+                      <label htmlFor="termoDeUso" className="text-base font-bold text-gray-700">Eu concordo com os termos de uso</label>
 
                     </div>
                   </div>

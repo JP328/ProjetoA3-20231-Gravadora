@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useValidationByPasswordMutation } from "../store";
 
 export default function LoginPage() {
+  const navigate = useNavigate()
 
   const [loginData, setLoginData] = useState({
     email: "",
-    password: ""
+    password: "",
+    standardUser: false
   })
+
+  const [ validationByPassword ] = useValidationByPasswordMutation()
 
   const handleForm = (event, name) => {
     setLoginData((prevState) => {
@@ -14,10 +19,15 @@ export default function LoginPage() {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const data = loginData
-    console.log(data);
+    const result = await validationByPassword(loginData)
+    
+    if(result.data.length !== 0) {
+      const id = result.data[0].idUsuario
+      localStorage.setItem("userId", id)
+      return loginData.standardUser ? navigate("/usuario") : navigate("/admin-home")
+    }
   }
 
   return(
@@ -59,6 +69,19 @@ export default function LoginPage() {
               </div>
             </div>
 
+            <div className="flex items-center ml-2 mb-5">
+              <div className="flex items-center">
+                <input id="standardUser" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 mt-1" value={loginData.standardUser}
+                  checked={loginData.standardUser}
+                  onChange={() => handleForm(!loginData.standardUser, 'standardUser')} />
+              </div>
+              <div className="ml-2 text-xl">
+                <label htmlFor="standardUser" className="text-base font-bold text-white">
+                  Sou um Talento.
+                </label>
+              </div>
+            </div>
+
             <div className="mb-6 text-center">
               <button
                 className="w-1/2 px-4 py-2 font-bold text-white border border-white rounded-full hover:border-blue-200 hover:text-blue-200 focus:shadow-outline"
@@ -80,7 +103,6 @@ export default function LoginPage() {
 
         </div>
       </div>
-
     </div>
   )
 }

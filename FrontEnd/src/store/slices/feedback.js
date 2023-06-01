@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const feedbackApi = createApi({
-  reducerPath: 'users',
+  reducerPath: 'feedback',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:6000'
+    baseUrl: 'http://localhost:7000'
   }),
   endpoints(builder) {
     return {
@@ -20,9 +20,9 @@ const feedbackApi = createApi({
           return {
             method: 'GET',
             url: `/feedback/${id}`,
-            params: {
-              id: id
-            }
+            // params: {
+            //   id: id
+            // }
           }
         }        
       }),

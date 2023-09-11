@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useValidationByPasswordMutation } from "../store";
+import Header from "../components/Header";
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -8,7 +9,7 @@ export default function LoginPage() {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
-    standardUser: false
+    standardUser: true
   })
 
   const [ validationByPassword ] = useValidationByPasswordMutation()
@@ -25,84 +26,93 @@ export default function LoginPage() {
     
     if(result.data.length !== 0) {
       const id = result.data[0].idUsuario
+      localStorage.removeItem("userId")
       localStorage.setItem("userId", id)
-      return loginData.standardUser ? navigate("/usuario") : navigate("/admin-home")
+
+      return id !== undefined ? navigate("/usuario") : navigate("/admin-home")
     }
   }
 
   return(
-    <div className="bg-gradient-to-br from-blue-500 to-pink-500 h-screen flex justify-center items-center">
-      <div className="w-full xl:w-3/4 lg:w-11/12 flex justify-center" >  
-        <div className="w-full lg:w-7/12 p-5 rounded-lg ">
-          <form className="px-8 pb-8 mb-4 rounded" onSubmit={handleSubmit}>
-          
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-white" htmlFor="email">
-                Email
-              </label>
-              <input
-                className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
-                value={loginData.email}
-                onChange={(e) => handleForm(e.target.value, "email")}
-                required
-                placeholder="Digite seu e-mail"
-              />
-            </div>
+    <>
+      <Header login={false} />
+      <div className="bg-loginWallpaper bg-center bg-cover lg:aspect-2500/1800 h-full w-full flex justify-center">
+        <div className="w-full xl:w-3/4 lg:w-11/12 md:w-4/5 relative my-20 flex justify-center">  
+          <div className="w-full lg:w-7/12 p-5 rounded-lg mt-5">
+            <h1 className="text-4xl max-sm:text-2xl text-white text-center mb-2">
+            {loginData.standardUser ? "Bem vindo a Tech Records!" : "Bem vindo administrador!"}
+            </h1>
+            <h2 className="text-3xl max-sm:text-xl text-white text-center mb-12 ">Faça seu Login na plataforma!</h2>
 
-            <div className="mb-4 ">
-              <div className="mb-4 md:mb-0">
-                <label className="block mb-2 text-sm font-bold text-white" htmlFor="senha">
-                  Senha
-                </label>
-                <input
-                  className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="senha"
-                  type="password"
-                  value={loginData.password}
-                  onChange={(e) => handleForm(e.target.value, "password")}
-                  required
-                  placeholder="********"
-                />
-                {/* <p className="text-xs italic text-red-500">Senha ou email invalido</p> */}
-              </div>
-            </div>
-
-            <div className="flex items-center ml-2 mb-5">
-              <div className="flex items-center">
-                <input id="standardUser" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 mt-1" value={loginData.standardUser}
-                  checked={loginData.standardUser}
-                  onChange={() => handleForm(!loginData.standardUser, 'standardUser')} />
-              </div>
-              <div className="ml-2 text-xl">
-                <label htmlFor="standardUser" className="text-base font-bold text-white">
-                  Sou um Talento.
-                </label>
-              </div>
-            </div>
-
-            <div className="mb-6 text-center">
-              <button
-                className="w-1/2 px-4 py-2 font-bold text-white border border-white rounded-full hover:border-blue-200 hover:text-blue-200 focus:shadow-outline"
-                type="submit"                
-              >
-                Entrar
+            <div className="flex items-end">
+              <button 
+                className="w-1/2 h-10 font-bold max-sm:text-sm text-white border border-white backdrop-filter backdrop-blur-xl" disabled>
+                {loginData.standardUser ? "Usuário" : "Administrador"}
+              </button>
+              
+              <button 
+                className="ml-auto w-2/6 h-8 font-bold max-sm:text-xs text-gray-300 border border-gray-200 bg-gray-200/10 backdrop-filter backdrop-blur-xl"
+                onClick={() => handleForm(!loginData.standardUser, 'standardUser')}>
+                {loginData.standardUser ? "Administrador" : "Usuário"}
               </button>
             </div>
             
-            <div className="text-center">
-              <Link 
-                className="inline-block text-sm text-white hover:text-blue-700 hover:underline" 
-                to={'/cadastre-se'}
-              >
-                Você ainda não tem uma conta ? Cadastre-se!
-              </Link>
-            </div>
-          </form>
+            <form className="px-8 pb-8 mb-4 border border-white rounde backdrop-filter backdrop-blur-lg shadow-sm shadow-white drop-shadow-xl" onSubmit={handleSubmit}>
+              <div className="my-4">
+                <label className="block mb-2 text-sm font-bold text-white" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  id="email"
+                  type="email"
+                  value={loginData.email}
+                  onChange={(e) => handleForm(e.target.value, "email")}
+                  required
+                  placeholder="Digite seu e-mail"
+                />
+              </div>
 
+              <div className="mb-4 ">
+                <div className="mb-4 md:mb-0">
+                  <label className="block mb-2 text-sm font-bold text-white" htmlFor="senha">
+                    Senha
+                  </label>
+                  <input
+                    className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="senha"
+                    type="password"
+                    value={loginData.password}
+                    onChange={(e) => handleForm(e.target.value, "password")}
+                    required
+                    placeholder="********"
+                  />
+                  {/* <p className="text-xs italic text-red-500">Senha ou email invalido</p> */}
+                </div>
+              </div>
+
+              <div className="my-4 text-center">
+                <button
+                  className="w-full px-4 py-2 font-bold text-white border border-white rounded-full hover:border-blue-200 hover:text-blue-200 focus:shadow-outline"
+                  type="submit"                
+                >
+                  Entrar
+                </button>
+              </div>
+              
+              <div className="text-center">
+                <Link 
+                  className="inline-block text-sm font-semibold text-white hover:text-slate-200 hover:font-normal" 
+                  to={'/cadastre-se'}
+                >
+                  Você ainda não tem uma conta? Cadastre-se!
+                </Link>
+              </div>
+            </form>
+
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -3,15 +3,11 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { usersApi } from "./slices/users";
 import { feedbackApi } from "./slices/feedback";
-import { userLocalInfosReducer } from "./slices/userId";
-import { referencesReducer } from "./slices/references";
 
 export const store = configureStore({
   reducer: {
     [usersApi.reducerPath] : usersApi.reducer,
     [feedbackApi.reducerPath] : feedbackApi.reducer,
-    [userLocalInfosReducer.name] : userLocalInfosReducer,
-    [referencesReducer.name] : referencesReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -25,6 +21,7 @@ setupListeners(store.dispatch);
 export { 
   useValidationByPasswordMutation,
   useAddUserMutation, 
+  useUpdateUserMutation,
   useFectchUserByIdQuery, 
   useFectchUsersQuery, 
   useRemoveUserMutation } from './slices/users'
@@ -34,6 +31,3 @@ useAddFeedbackMutation,
 useFectchFeedbackByIdQuery, 
 useFectchFeedbacksQuery, 
 useRemoveFeedbackMutation } from './slices/feedback'
-
-export { setUsersInfos } from './slices/userId'
-export { setReferences } from './slices/references'

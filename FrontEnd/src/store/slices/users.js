@@ -48,6 +48,17 @@ const usersApi = createApi({
           };
         }
       }),
+      updateUser: builder.mutation({
+        query: (data) => {
+          return {
+            method: 'PUT',
+            url: `/usuarios/${data.idUsuario}`,
+            body: {
+              ...data
+            }
+          };
+        }
+      }),
       removeUser: builder.mutation({
        query: (id) => {
         return {
@@ -65,7 +76,8 @@ const usersApi = createApi({
 
 export const { 
   useValidationByPasswordMutation,
-  useAddUserMutation, 
+  useAddUserMutation,
+  useUpdateUserMutation, 
   useFectchUserByIdQuery, 
   useFectchUsersQuery, 
   useRemoveUserMutation } = usersApi;

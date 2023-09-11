@@ -9,8 +9,6 @@ const axios = require('axios');
 require('dotenv').config()
 const {DB_USER,DB_HOST,DB_DATABASE,DB_PASSWORD}  = process.env
 
-// const feedback = {};
-
 app.use(cors())
 
 const connection = mysql.createConnection({
@@ -21,25 +19,18 @@ const connection = mysql.createConnection({
 })
 
 app.get('/feedback/:id', (req, res) => {
-  // res.send(feedback[req.params.id] || []);
-
   const idUsuario = req.params.id;
-  console.log(idUsuario);
 
   const sql = "select * from tb_feedback where idUsuario = ?"
   
   connection.query(sql, idUsuario, (err, result) =>{
-    if(err){
-      res.send(err)
-    }else{
-      res.send(result)
-    }
+    result ? res.send(result) : res.send(err)
   })
 });
 
 app.post('/feedback/:id', async (req, res) => {
-  const idUsuario = req.params.id;
-  const infosFeedback = {...req.body, idUsuario}
+  // const idUsuario = req.params.id;
+  const infosFeedback = {...req.body}
 
   const sql = "insert into tb_feedback set ?"
 
@@ -47,16 +38,13 @@ app.post('/feedback/:id', async (req, res) => {
     result ? res.send("Feedback Cadastrado com Sucesso!") : res.send(err)
   })
 
-  await axios.post("http://localhost:10000/eventos", {
-    tipo: "FeedbackCriado",
-    dados: infosFeedback
-  })
-  // res.status(201).send(feedback[userId]);
+  // await axios.post("http://localhost:10000/eventos", {
+  //   tipo: "FeedbackCriado",
+  //   dados: infosFeedback
+  // })
 });
 
 app.delete('/feedback/:id', (req, res) => {
-  // delete feedback[req.params.id] && res.send(`Feedback do usuário ---- deletado com sucesso!`);
-
   const idFeedback = req.params.id
 
   connection.query(`delete from tb_feedback where idFeedback = ${idFeedback}`, (err,result) => {

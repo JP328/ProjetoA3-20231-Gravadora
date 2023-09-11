@@ -9,16 +9,7 @@ const mysql = require('mysql2')
 require('dotenv').config()
 const {DB_USER,DB_HOST,DB_DATABASE,DB_PASSWORD}  = process.env
 
-// app.use(cors)
-// const corsOptions ={
-//   origin:'http://localhost:3000', 
-//   credentials:true,   //access-control-allow-credentials:true
-//   optionSuccessStatus:200
-// }
-
 app.use(cors());
-
-// const usuarios = {};
 
 const connection = mysql.createConnection({
   host:DB_HOST,
@@ -45,7 +36,7 @@ app.get('/usuarios/validation/user/', (req, res) => {
 
 app.post('/usuarios/validation/', (req, res) => {
   const validateInfos = req.body
-  console.log(validateInfos);
+  // console.log(validateInfos);
 
   let sql;
   
@@ -71,34 +62,36 @@ app.post('/usuarios', async (req, res) => {
   let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
 
   const links = req.body.linksPortifolio
-  links.map((link) => formattedInputs.linksPortifolio += link + "-")
+  links.map((link) => formattedInputs.linksPortifolio += link + "  ")
   
   const habilidades = req.body.habilidades
-  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "-")
+  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "  ")
   
   const sql = "insert into tb_usuario set ?"
   const infosUsuario = {...req.body, ...formattedInputs}
 
+  console.log(infosUsuario);
   connection.query(sql,infosUsuario,(err,result) => {
-    result ? res.send("Dados Atualizados com Sucesso!") : res.send(err)
+    result ? res.send("Dados cadastrados com Sucesso!") : res.send(err)
   })
 
-  await axios.post('http://localhost:10000/eventos', {
-    tipo: "UsuarioCriado",
-    dados: {
-      ...infosUsuario
-    }
-  })
+  // await axios.post('http://localhost:10000/eventos', {
+  //   tipo: "UsuarioCriado",
+  //   dados: {
+  //     ...infosUsuario
+  //   }
+  // })
 });
 
 app.put('/usuarios/:id', async(req,res) => {
   let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
-  
+  console.log(req.body);
+
   const links = req.body.linksPortifolio
-  links.map((link) => formattedInputs.linksPortifolio += link + "-")
+  links.map((link) => formattedInputs.linksPortifolio += link + "  ")
   
   const habilidades = req.body.habilidades
-  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "-")
+  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "  ")
   
   const idUsuario = req.params.id
   const sql = `update tb_usuario set ? where idUsuario =${idUsuario}`
@@ -109,12 +102,12 @@ app.put('/usuarios/:id', async(req,res) => {
     result ? res.send("Dados Atualizados com Sucesso!") : res.send(err)
   })
 
-  await axios.post('http://localhost:10000/eventos', {
-    tipo: "UsuarioAtualizado",
-    dados: {
-      ...infosUsuario
-    }
-  })
+  // await axios.post('http://localhost:10000/eventos', {
+  //   tipo: "UsuarioAtualizado",
+  //   dados: {
+  //     ...infosUsuario
+  //   }
+  // })
 })
 
 app.delete('/usuarios/:id', (req, res) => {

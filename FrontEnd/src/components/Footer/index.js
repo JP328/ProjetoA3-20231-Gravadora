@@ -6,7 +6,7 @@ export default function Footer() {
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{' '}
             <a href="https://flowbite.com/" className="hover:underline">
-              Nome_Projeto™
+              Tech Records
             </a>
             . Não temos os direitos reservados ainda, pois é um projeto fictício.
           </span>

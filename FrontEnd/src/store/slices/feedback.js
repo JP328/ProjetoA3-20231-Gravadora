@@ -17,20 +17,18 @@ const feedbackApi = createApi({
       }),
       fectchFeedbackById: builder.query({
         query: (id) => {
+          console.log(id);
           return {
             method: 'GET',
             url: `/feedback/${id}`,
-            // params: {
-            //   id: id
-            // }
           }
         }        
       }),
       addFeedback: builder.mutation({
-        query: (data, id) => {
+        query: (data) => {
           return {
             method: 'POST',
-            url: `/feedback/${id}`,
+            url: `/feedback/${data.idUsuario}`,
             body: {
               ...data
             }

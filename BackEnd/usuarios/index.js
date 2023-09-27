@@ -24,19 +24,18 @@ app.get ('/usuarios', (req, res) => {
   })
 });
 
-app.get('/usuarios/validation/user/', (req, res) => {
-  const validateInfos = req.params
+// app.get('/usuarios/validation/user/', (req, res) => {
+//   const validateInfos = req.params
 
-  const sql = `select * from tb_usuario where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
+//   const sql = `select * from tb_usuario where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
   
-  connection.query(sql, (err, result) => {
-    result ? res.json(result) : res.send(err)
-  })  
-});
+//   connection.query(sql, (err, result) => {
+//     result ? res.json(result) : res.send(err)
+//   })  
+// });
 
 app.post('/usuarios/validation/', (req, res) => {
   const validateInfos = req.body
-  // console.log(validateInfos);
 
   let sql;
   
@@ -46,7 +45,7 @@ app.post('/usuarios/validation/', (req, res) => {
     sql = `select * from tb_adm where email = "${validateInfos.email}" and senha = "${validateInfos.password}"`
 
   connection.query(sql, (err, result) => {
-    result ? res.json(result) : res.send(false)
+    result ? res.json(result) : res.send(err)
   })  
 });
 
@@ -62,10 +61,10 @@ app.post('/usuarios', async (req, res) => {
   let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
 
   const links = req.body.linksPortifolio
-  links.map((link) => formattedInputs.linksPortifolio += link + "  ")
+  links.map((link) => formattedInputs.linksPortifolio += "  " + link)
   
   const habilidades = req.body.habilidades
-  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "  ")
+  habilidades.map((habilidade) => formattedInputs.habilidades += "  " + habilidade)
   
   const sql = "insert into tb_usuario set ?"
   const infosUsuario = {...req.body, ...formattedInputs}
@@ -85,13 +84,12 @@ app.post('/usuarios', async (req, res) => {
 
 app.put('/usuarios/:id', async(req,res) => {
   let formattedInputs = {"linksPortifolio": "", "habilidades": ""}
-  console.log(req.body);
 
   const links = req.body.linksPortifolio
-  links.map((link) => formattedInputs.linksPortifolio += link + "  ")
+  links.map((link) => formattedInputs.linksPortifolio += "  " + link)
   
   const habilidades = req.body.habilidades
-  habilidades.map((habilidade) => formattedInputs.habilidades += habilidade + "  ")
+  habilidades.map((habilidade) => formattedInputs.habilidades += "  " + habilidade)
   
   const idUsuario = req.params.id
   const sql = `update tb_usuario set ? where idUsuario =${idUsuario}`

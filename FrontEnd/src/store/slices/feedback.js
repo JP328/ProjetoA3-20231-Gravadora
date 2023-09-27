@@ -17,7 +17,6 @@ const feedbackApi = createApi({
       }),
       fectchFeedbackById: builder.query({
         query: (id) => {
-          console.log(id);
           return {
             method: 'GET',
             url: `/feedback/${id}`,

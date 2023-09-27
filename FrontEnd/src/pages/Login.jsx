@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useValidationByPasswordMutation } from "../store";
 import Header from "../components/Header";
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const [ validationByPassword ] = useValidationByPasswordMutation()
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -12,7 +14,14 @@ export default function LoginPage() {
     standardUser: true
   })
 
-  const [ validationByPassword ] = useValidationByPasswordMutation()
+  useEffect(() => {
+    if (localStorage.getItem("admId")){
+      navigate("/admin-home")
+    } else if (localStorage.getItem("userId")) {
+      navigate("/usuario")
+    }
+  },[navigate]);
+  
 
   const handleForm = (event, name) => {
     setLoginData((prevState) => {
@@ -22,15 +31,40 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const result = await validationByPassword(loginData)
-    
-    if(result.data.length !== 0) {
-      const id = result.data[0].idUsuario
-      localStorage.removeItem("userId")
-      localStorage.setItem("userId", id)
+    await validationByPassword(loginData).then(res => {
 
-      return id !== undefined ? navigate("/usuario") : navigate("/admin-home")
-    }
+      if (res.data.length !== 0) {
+        const id = res.data[0].idUsuario
+        
+        if(res.data.length !== 0) {
+          if(loginData.standardUser === true) {
+            localStorage.setItem("userId", id)
+            return navigate("/usuario")
+          }
+    
+          localStorage.setItem("admId", id)
+          return navigate("/admin-home")
+        }      
+      } else {
+        toast.error("Email ou Senha incorretos!", {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          }); 
+      }
+    }).catch(err => {
+      toast.error("Serviço indisponível no momento! Tente mais tarde.", {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    })
   }
 
   return(
@@ -51,7 +85,7 @@ export default function LoginPage() {
               </button>
               
               <button 
-                className="ml-auto w-2/6 h-8 font-bold max-sm:text-xs text-gray-300 border border-gray-200 bg-gray-200/10 backdrop-filter backdrop-blur-xl"
+                className="ml-auto w-2/6 h-8 font-bold max-sm:text-xs text-gray-300 border border-gray-200 bg-gray-200/10 backdrop-filter backdrop-blur-xl appearance-none focus:outline-none"
                 onClick={() => handleForm(!loginData.standardUser, 'standardUser')}>
                 {loginData.standardUser ? "Administrador" : "Usuário"}
               </button>
@@ -63,11 +97,12 @@ export default function LoginPage() {
                   Email
                 </label>
                 <input
-                  className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-slate-300 placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  className="w-full bg-slate-200/30 px-3 py-2 mb-3 text-sm text-white font-bold placeholder:font-normal placeholder:text-slate-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="email"
                   type="email"
                   value={loginData.email}
                   onChange={(e) => handleForm(e.target.value, "email")}
+                  autoComplete="off"
                   required
                   placeholder="Digite seu e-mail"
                 />
@@ -102,7 +137,7 @@ export default function LoginPage() {
               
               <div className="text-center">
                 <Link 
-                  className="inline-block text-sm font-semibold text-white hover:text-slate-200 hover:font-normal" 
+                  className="inline-block text-sm font-semibold text-white hover:text-slate-200 hover:font-normal appearance-none focus:outline-none" 
                   to={'/cadastre-se'}
                 >
                   Você ainda não tem uma conta? Cadastre-se!

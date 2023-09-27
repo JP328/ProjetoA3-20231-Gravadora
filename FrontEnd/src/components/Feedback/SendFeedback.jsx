@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useAddFeedbackMutation } from "../../store";
 
 function SendFeedback() {
@@ -20,16 +21,33 @@ function SendFeedback() {
   const handleForm = async (event) => {
     try {
       event.preventDefault()
-      return await addFeedback(feedbackInfos)
+      await addFeedback(feedbackInfos).then(res =>
+        toast.success(res.error.data, {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          })
+      )
+
     } catch (err) {
-      console.log(err);
+      toast.error(err, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     }
   }
 
   return (
-    <div className="w-1/2 max-md:w-full text-white select-none">
+    <div className="w-1/2 max-md:w-full px-8 text-white select-none">
       <h2 className="font-bold text-xl mt-7 mb-4">Envio de Feedbacks</h2>
-      <p className="font-bold">
+      <p className="font-semibold">
         Aqui você pode enviar mensagens, de mão única, para o usuário atual. Basta escrever e enviar! 
       </p>
       

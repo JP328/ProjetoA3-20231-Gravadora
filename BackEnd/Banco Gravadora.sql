@@ -9,8 +9,8 @@ dataDeNascimento varchar(200) not null,
 email varchar(200) not null,
 senha varchar(200) not null,
 cep varchar(200) not null not null,
-linksPortifolio varchar(200) not null,
-descricao varchar(200) not null,
+linksPortifolio varchar(600) not null,
+descricao varchar(300) not null,
 banda varchar(200),
 habilidades varchar(200) not null,
 termoDeUso boolean not null,
@@ -85,4 +85,4 @@ drop table feedback;
 
 drop table adm;
 
-drop table usuario;
+drop table tb_usuario;

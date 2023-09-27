@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { useAddUserMutation } from "../store"
 import Header from "../components/Header";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [addUser] = useAddUserMutation();
@@ -29,15 +31,31 @@ export default function Register() {
   const handleForm = async (event) => {
     try {
       event.preventDefault()
-      return await addUser(formData)
+      await addUser(formData).then(res => {
+        toast.success(res.error.data, {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+      })
     } catch (err) {
-      console.log(err);
+      toast.error("Serviço indisponível no momento! Tente mais tarde.", {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     }
   }
 
   return (
     <>
-      <Header/>
+      <Header login={false} />
       <div className="bg-loginWallpaper bg-center bg-cover flex h-full pt-20">
 
         <div className="container mx-auto">
@@ -117,8 +135,6 @@ export default function Register() {
                   </div>
 
                   <div className="mb-4 md:flex md:justify-between gap-x-5">
-
-
                     <div className="w-full">
                       <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="CEP">
                         CEP
@@ -150,7 +166,6 @@ export default function Register() {
                   </div>
 
                   <div className="mb-4 md:flex md:justify-between gap-x-6">
-
                     <div className="flex flex-col">
                       {formData.habilidades.map((habilidade, index) => (
                         <div key={`skills ${index}`} className={"mb-4 md:mb-0 w-full " + index === 0 ? "" : ""}>
@@ -165,30 +180,29 @@ export default function Register() {
                               placeholder="Digite sua habilidade"
                               value={habilidade}
                               required
-
                               onChange={(e) => {
                                 formData.habilidades[index] = e.target.value
                                 handleFormEdit(formData.habilidades, 'habilidades')
                               }}
                             />
 
-                            <button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none   rounded-lg text-center  p-1 items-center " onClick={() => {
-                              formData.habilidades.push("")
-                              handleFormEdit(formData.habilidades, 'habilidades')
-                            }}>
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
-                                <path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
-                              </svg>
+                                <button type="button" className="mb-3 text-blue-700 hover:text-blue-800 text-center" onClick={() => {
+                                  formData.habilidades.push("")
+                                  handleFormEdit(formData.habilidades, 'habilidades')
+                                }}>
+                                  <AiOutlinePlusCircle className="text-3xl transition-all hover:animate-bounce"/>
+                                </button>
 
-                            </button>
-                            {index > 0 ? (<button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none rounded-lg text-center  p-1 items-center " onClick={() => {
-                              formData.habilidades.splice(index, 1)
-                              handleFormEdit(formData.habilidades, 'habilidades')
-                            }}>
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
-                                <path fillRule="evenodd" d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75z" clipRule="evenodd" />
-                              </svg>
-                            </button>) : (false)}
+                            {
+                              index > 0 ?
+                                <button type="button" className="mb-3 text-blue-700 hover:text-blue-800 text-center" onClick={() => {
+                                  formData.habilidades.splice(index, 1)
+                                  handleFormEdit(formData.habilidades, 'habilidades')
+                                }}>
+                                  <AiOutlineMinusCircle className="text-3xl transition-all hover:animate-bounce"/>
+                                </button> 
+                              : false
+                            }
 
                           </div>
                         </div>
@@ -216,23 +230,23 @@ export default function Register() {
                               }}
                             />
 
-                            <button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none   rounded-lg text-center  p-1 items-center " onClick={() => {
-                              formData.linksPortifolio.push("")
-                              handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
+                            <button type="button" className="mb-3 text-blue-700 hover:text-blue-800 text-center" onClick={() => {
+                            formData.linksPortifolio.push("")
+                            handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
                             }}>
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
-                                <path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
-                              </svg>
-
+                              <AiOutlinePlusCircle className="text-3xl transition-all hover:animate-bounce"/>
                             </button>
-                            {index > 0 ? (<button type="button" className="mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none   rounded-lg text-center  p-1 items-center " onClick={() => {
-                              formData.linksPortifolio.splice(index, 1)
-                              handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
-                            }}>
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mx-auto">
-                                <path fillRule="evenodd" d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75z" clipRule="evenodd" />
-                              </svg>
-                            </button>) : (false)}
+
+                            {
+                              index > 0 ?
+                                <button type="button" className="mb-3 text-blue-700 hover:text-blue-800 text-center" onClick={() => {
+                                  formData.linksPortifolio.splice(index, 1)
+                                  handleFormEdit(formData.linksPortifolio, 'linksPortifolio')
+                                }}>
+                                  <AiOutlineMinusCircle className="text-3xl transition-all hover:animate-bounce"/>
+                                </button> 
+                              : false
+                            }
 
                           </div>
                         </div>
